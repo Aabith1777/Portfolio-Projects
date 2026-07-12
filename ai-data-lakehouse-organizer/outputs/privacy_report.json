@@ -1,0 +1,177 @@
+{
+    "summary": {
+        "tables_analyzed": 6,
+        "sensitive_columns_detected": 2,
+        "severity_breakdown": {
+            "LOW": 0,
+            "MEDIUM": 0,
+            "HIGH": 2,
+            "CRITICAL": 0
+        }
+    },
+    "tables": [
+        {
+            "table_name": "cust_info_final",
+            "total_columns": 4,
+            "sensitive_column_count": 2,
+            "safe_column_count": 2,
+            "sensitive_columns": [
+                {
+                    "column": "FULL_NM",
+                    "classification": "PERSON_NAME",
+                    "category": "PII",
+                    "severity": "HIGH",
+                    "description": "Personally identifiable name.",
+                    "action": "MASK",
+                    "confidence": 70,
+                    "score": 70,
+                    "reasons": [
+                        "Matched 'FULL_NAME'",
+                        "String datatype",
+                        "High uniqueness ratio"
+                    ]
+                },
+                {
+                    "column": "EMAIL_ID",
+                    "classification": "EMAIL_ADDRESS",
+                    "category": "PII",
+                    "severity": "HIGH",
+                    "description": "Personally identifiable email address.",
+                    "action": "MASK",
+                    "confidence": 100,
+                    "score": 100,
+                    "reasons": [
+                        "Matched 'EMAIL_ID'",
+                        "String datatype",
+                        "High uniqueness ratio"
+                    ]
+                }
+            ],
+            "safe_columns": [
+                {
+                    "column": "CUST_ID"
+                },
+                {
+                    "column": "JOIN_DT"
+                }
+            ]
+        },
+        {
+            "table_name": "delivery_tracking",
+            "total_columns": 5,
+            "sensitive_column_count": 0,
+            "safe_column_count": 5,
+            "sensitive_columns": [],
+            "safe_columns": [
+                {
+                    "column": "TRACK_ID"
+                },
+                {
+                    "column": "ORDER_REFERENCE"
+                },
+                {
+                    "column": "COURIER_NM"
+                },
+                {
+                    "column": "SHIP_DT"
+                },
+                {
+                    "column": "DELIVERY_STATUS"
+                }
+            ]
+        },
+        {
+            "table_name": "order_dump_2025",
+            "total_columns": 5,
+            "sensitive_column_count": 0,
+            "safe_column_count": 5,
+            "sensitive_columns": [],
+            "safe_columns": [
+                {
+                    "column": "ORD_ID"
+                },
+                {
+                    "column": "CUST_REF"
+                },
+                {
+                    "column": "ORD_DT"
+                },
+                {
+                    "column": "ORDER_STATUS"
+                },
+                {
+                    "column": "TOTAL_AMT"
+                }
+            ]
+        },
+        {
+            "table_name": "order_items_new",
+            "total_columns": 5,
+            "sensitive_column_count": 0,
+            "safe_column_count": 5,
+            "sensitive_columns": [],
+            "safe_columns": [
+                {
+                    "column": "ITEM_ID"
+                },
+                {
+                    "column": "ORDER_REF"
+                },
+                {
+                    "column": "PRODUCT_REF"
+                },
+                {
+                    "column": "QTY"
+                },
+                {
+                    "column": "UNIT_PRICE"
+                }
+            ]
+        },
+        {
+            "table_name": "payment_txns_v2",
+            "total_columns": 5,
+            "sensitive_column_count": 0,
+            "safe_column_count": 5,
+            "sensitive_columns": [],
+            "safe_columns": [
+                {
+                    "column": "PAYMENT_ID"
+                },
+                {
+                    "column": "ORDER_ID_REF"
+                },
+                {
+                    "column": "PAY_MODE"
+                },
+                {
+                    "column": "PAYMENT_AMT"
+                },
+                {
+                    "column": "PAYMENT_STATUS"
+                }
+            ]
+        },
+        {
+            "table_name": "product_master_old",
+            "total_columns": 4,
+            "sensitive_column_count": 0,
+            "safe_column_count": 4,
+            "sensitive_columns": [],
+            "safe_columns": [
+                {
+                    "column": "PROD_CODE"
+                },
+                {
+                    "column": "PROD_NM"
+                },
+                {
+                    "column": "CATEGORY"
+                },
+                {
+                    "column": "PRICE"
+                }
+            ]
+        }
+    ]
+}

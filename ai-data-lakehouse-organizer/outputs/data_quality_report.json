@@ -1,0 +1,206 @@
+[
+    {
+        "table_name": "cust_info_final",
+        "row_count": 6,
+        "summary": {
+            "total_issues": 5,
+            "critical_issues": 3,
+            "warnings": 2
+        },
+        "issues": [
+            {
+                "issue_type": "duplicate_rows",
+                "column": null,
+                "severity": "critical",
+                "details": "Found 1 duplicate row(s)"
+            },
+            {
+                "issue_type": "duplicate_identifier",
+                "column": "CUST_ID",
+                "severity": "critical",
+                "details": "Found 1 duplicate identifier value(s)"
+            },
+            {
+                "issue_type": "whitespace_issue",
+                "column": "FULL_NM",
+                "severity": "warning",
+                "details": "Found 1 value(s) with leading or trailing spaces"
+            },
+            {
+                "issue_type": "missing_values",
+                "column": "EMAIL_ID",
+                "severity": "warning",
+                "details": "2 missing value(s) (33.33%)"
+            },
+            {
+                "issue_type": "duplicate_identifier",
+                "column": "EMAIL_ID",
+                "severity": "critical",
+                "details": "Found 1 duplicate identifier value(s)"
+            }
+        ]
+    },
+    {
+        "table_name": "delivery_tracking",
+        "row_count": 5,
+        "summary": {
+            "total_issues": 4,
+            "critical_issues": 1,
+            "warnings": 3
+        },
+        "issues": [
+            {
+                "issue_type": "missing_values",
+                "column": "COURIER_NM",
+                "severity": "warning",
+                "details": "1 missing value(s) (20.0%)"
+            },
+            {
+                "issue_type": "missing_values",
+                "column": "SHIP_DT",
+                "severity": "warning",
+                "details": "1 missing value(s) (20.0%)"
+            },
+            {
+                "issue_type": "invalid_date",
+                "column": "SHIP_DT",
+                "severity": "critical",
+                "details": "Found 1 invalid date value(s)"
+            },
+            {
+                "issue_type": "inconsistent_casing",
+                "column": "DELIVERY_STATUS",
+                "severity": "warning",
+                "details": "Found values that differ only by uppercase/lowercase formatting"
+            }
+        ]
+    },
+    {
+        "table_name": "order_dump_2025",
+        "row_count": 6,
+        "summary": {
+            "total_issues": 3,
+            "critical_issues": 0,
+            "warnings": 3
+        },
+        "issues": [
+            {
+                "issue_type": "missing_values",
+                "column": "ORD_DT",
+                "severity": "warning",
+                "details": "1 missing value(s) (16.67%)"
+            },
+            {
+                "issue_type": "inconsistent_casing",
+                "column": "ORDER_STATUS",
+                "severity": "warning",
+                "details": "Found values that differ only by uppercase/lowercase formatting"
+            },
+            {
+                "issue_type": "missing_values",
+                "column": "TOTAL_AMT",
+                "severity": "warning",
+                "details": "1 missing value(s) (16.67%)"
+            }
+        ]
+    },
+    {
+        "table_name": "order_items_new",
+        "row_count": 6,
+        "summary": {
+            "total_issues": 2,
+            "critical_issues": 0,
+            "warnings": 2
+        },
+        "issues": [
+            {
+                "issue_type": "invalid_numeric_value",
+                "column": "QTY",
+                "severity": "warning",
+                "details": "Found 2 zero or negative value(s)"
+            },
+            {
+                "issue_type": "missing_values",
+                "column": "UNIT_PRICE",
+                "severity": "warning",
+                "details": "1 missing value(s) (16.67%)"
+            }
+        ]
+    },
+    {
+        "table_name": "payment_txns_v2",
+        "row_count": 5,
+        "summary": {
+            "total_issues": 5,
+            "critical_issues": 2,
+            "warnings": 3
+        },
+        "issues": [
+            {
+                "issue_type": "duplicate_rows",
+                "column": null,
+                "severity": "critical",
+                "details": "Found 1 duplicate row(s)"
+            },
+            {
+                "issue_type": "duplicate_identifier",
+                "column": "PAYMENT_ID",
+                "severity": "critical",
+                "details": "Found 1 duplicate identifier value(s)"
+            },
+            {
+                "issue_type": "missing_values",
+                "column": "PAY_MODE",
+                "severity": "warning",
+                "details": "2 missing value(s) (40.0%)"
+            },
+            {
+                "issue_type": "inconsistent_casing",
+                "column": "PAY_MODE",
+                "severity": "warning",
+                "details": "Found values that differ only by uppercase/lowercase formatting"
+            },
+            {
+                "issue_type": "inconsistent_casing",
+                "column": "PAYMENT_STATUS",
+                "severity": "warning",
+                "details": "Found values that differ only by uppercase/lowercase formatting"
+            }
+        ]
+    },
+    {
+        "table_name": "product_master_old",
+        "row_count": 5,
+        "summary": {
+            "total_issues": 4,
+            "critical_issues": 0,
+            "warnings": 4
+        },
+        "issues": [
+            {
+                "issue_type": "whitespace_issue",
+                "column": "PROD_NM",
+                "severity": "warning",
+                "details": "Found 2 value(s) with leading or trailing spaces"
+            },
+            {
+                "issue_type": "missing_values",
+                "column": "CATEGORY",
+                "severity": "warning",
+                "details": "1 missing value(s) (20.0%)"
+            },
+            {
+                "issue_type": "inconsistent_casing",
+                "column": "CATEGORY",
+                "severity": "warning",
+                "details": "Found values that differ only by uppercase/lowercase formatting"
+            },
+            {
+                "issue_type": "invalid_numeric_value",
+                "column": "PRICE",
+                "severity": "warning",
+                "details": "Found 1 zero or negative value(s)"
+            }
+        ]
+    }
+]

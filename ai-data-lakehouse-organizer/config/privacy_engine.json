@@ -1,0 +1,8 @@
+{
+    "minimum_confidence": 60,
+    "feature_weights": {
+        "string_datatype": 10,
+        "high_uniqueness": 20,
+        "high_null_percentage": -10
+    }
+}

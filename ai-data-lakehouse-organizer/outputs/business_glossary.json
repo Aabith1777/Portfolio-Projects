@@ -1,0 +1,332 @@
+{
+    "metadata": {
+        "version": "1.0",
+        "generated_at": "2026-07-12T08:04:23+00:00",
+        "generator": "AI Data Lakehouse Organizer",
+        "tables": 6
+    },
+    "tables": [
+        {
+            "business_domain": "Customer Management",
+            "table_name": "dim_customers",
+            "table_description": "Contains consolidated customer profile information including identity and registration date.",
+            "columns": [
+                {
+                    "column": "customer_id",
+                    "business_description": "Unique identifier assigned to a customer for identity management and cross-system reference.",
+                    "privacy": {
+                        "is_sensitive": false,
+                        "classification": null,
+                        "category": null,
+                        "severity": null
+                    }
+                },
+                {
+                    "column": "FULL_NM",
+                    "business_description": "The legal name of the customer as registered within enterprise systems.",
+                    "privacy": {
+                        "is_sensitive": true,
+                        "classification": "PERSON_NAME",
+                        "category": "PII",
+                        "severity": "HIGH"
+                    }
+                },
+                {
+                    "column": "EMAIL_ID",
+                    "business_description": "The primary electronic mail address used for customer communication and authentication.",
+                    "privacy": {
+                        "is_sensitive": true,
+                        "classification": "EMAIL_ADDRESS",
+                        "category": "PII",
+                        "severity": "HIGH"
+                    }
+                },
+                {
+                    "column": "registration_date",
+                    "business_description": "The date on which the customer account was formally created in the enterprise system.",
+                    "privacy": {
+                        "is_sensitive": false,
+                        "classification": null,
+                        "category": null,
+                        "severity": null
+                    }
+                }
+            ]
+        },
+        {
+            "business_domain": "Logistics",
+            "table_name": "fact_deliveries",
+            "table_description": "Tracks shipment status, courier assignments, and delivery progress for customer orders.",
+            "columns": [
+                {
+                    "column": "tracking_id",
+                    "business_description": "A unique identifier assigned to a shipment to monitor its movement and progress throughout the logistics network.",
+                    "privacy": {
+                        "is_sensitive": false,
+                        "classification": null,
+                        "category": null,
+                        "severity": null
+                    }
+                },
+                {
+                    "column": "order_id",
+                    "business_description": "The unique reference number associated with a specific customer sales order, linking the shipment to the original transaction.",
+                    "privacy": {
+                        "is_sensitive": false,
+                        "classification": null,
+                        "category": null,
+                        "severity": null
+                    }
+                },
+                {
+                    "column": "courier_name",
+                    "business_description": "The name of the logistics provider or transportation service responsible for the delivery of the shipment.",
+                    "privacy": {
+                        "is_sensitive": false,
+                        "classification": null,
+                        "category": null,
+                        "severity": null
+                    }
+                },
+                {
+                    "column": "shipment_date",
+                    "business_description": "The calendar date on which the shipment was officially dispatched from the origin facility.",
+                    "privacy": {
+                        "is_sensitive": false,
+                        "classification": null,
+                        "category": null,
+                        "severity": null
+                    }
+                },
+                {
+                    "column": "delivery_status",
+                    "business_description": "The current stage or lifecycle state of the shipment, such as in-transit, out-for-delivery, or delivered.",
+                    "privacy": {
+                        "is_sensitive": false,
+                        "classification": null,
+                        "category": null,
+                        "severity": null
+                    }
+                }
+            ]
+        },
+        {
+            "business_domain": "Sales",
+            "table_name": "fact_orders",
+            "table_description": "Centralized record of customer orders, including order status, dates, and total transaction amounts.",
+            "columns": [
+                {
+                    "column": "order_id",
+                    "business_description": "Unique identifier assigned to each customer order transaction.",
+                    "privacy": {
+                        "is_sensitive": false,
+                        "classification": null,
+                        "category": null,
+                        "severity": null
+                    }
+                },
+                {
+                    "column": "customer_id",
+                    "business_description": "Unique identifier associated with the customer who placed the order.",
+                    "privacy": {
+                        "is_sensitive": false,
+                        "classification": null,
+                        "category": null,
+                        "severity": null
+                    }
+                },
+                {
+                    "column": "order_date",
+                    "business_description": "The calendar date on which the customer order was initiated.",
+                    "privacy": {
+                        "is_sensitive": false,
+                        "classification": null,
+                        "category": null,
+                        "severity": null
+                    }
+                },
+                {
+                    "column": "order_status",
+                    "business_description": "Current lifecycle state of the order, such as pending, shipped, or delivered.",
+                    "privacy": {
+                        "is_sensitive": false,
+                        "classification": null,
+                        "category": null,
+                        "severity": null
+                    }
+                },
+                {
+                    "column": "total_amount",
+                    "business_description": "The final aggregate monetary value of the order transaction including taxes and fees.",
+                    "privacy": {
+                        "is_sensitive": false,
+                        "classification": null,
+                        "category": null,
+                        "severity": null
+                    }
+                }
+            ]
+        },
+        {
+            "business_domain": "Sales",
+            "table_name": "fact_order_items",
+            "table_description": "Detailed line items associated with customer orders, referencing products and quantities purchased.",
+            "columns": [
+                {
+                    "column": "order_item_id",
+                    "business_description": "Unique identifier for each individual line item within a customer order.",
+                    "privacy": {
+                        "is_sensitive": false,
+                        "classification": null,
+                        "category": null,
+                        "severity": null
+                    }
+                },
+                {
+                    "column": "order_id",
+                    "business_description": "Unique identifier for the parent order to which this line item belongs.",
+                    "privacy": {
+                        "is_sensitive": false,
+                        "classification": null,
+                        "category": null,
+                        "severity": null
+                    }
+                },
+                {
+                    "column": "product_id",
+                    "business_description": "Unique identifier for the product or service being purchased within the order line item.",
+                    "privacy": {
+                        "is_sensitive": false,
+                        "classification": null,
+                        "category": null,
+                        "severity": null
+                    }
+                },
+                {
+                    "column": "quantity",
+                    "business_description": "The number of units of the specific product purchased for this line item.",
+                    "privacy": {
+                        "is_sensitive": false,
+                        "classification": null,
+                        "category": null,
+                        "severity": null
+                    }
+                },
+                {
+                    "column": "unit_price",
+                    "business_description": "The price per single unit of the product at the time the order was placed.",
+                    "privacy": {
+                        "is_sensitive": false,
+                        "classification": null,
+                        "category": null,
+                        "severity": null
+                    }
+                }
+            ]
+        },
+        {
+            "business_domain": "Finance",
+            "table_name": "fact_payments",
+            "table_description": "Captures payment transaction details linked to customer orders, including status and mode of payment.",
+            "columns": [
+                {
+                    "column": "payment_id",
+                    "business_description": "A unique identifier assigned to each individual payment transaction for tracking and reconciliation purposes.",
+                    "privacy": {
+                        "is_sensitive": false,
+                        "classification": null,
+                        "category": null,
+                        "severity": null
+                    }
+                },
+                {
+                    "column": "order_id",
+                    "business_description": "The unique identifier linking the payment to a specific customer order within the sales system.",
+                    "privacy": {
+                        "is_sensitive": false,
+                        "classification": null,
+                        "category": null,
+                        "severity": null
+                    }
+                },
+                {
+                    "column": "payment_method",
+                    "business_description": "The specified mechanism used to process the transaction, such as credit card, electronic fund transfer, or digital wallet.",
+                    "privacy": {
+                        "is_sensitive": false,
+                        "classification": null,
+                        "category": null,
+                        "severity": null
+                    }
+                },
+                {
+                    "column": "payment_amount",
+                    "business_description": "The total monetary value of the payment transaction, represented in the base currency.",
+                    "privacy": {
+                        "is_sensitive": false,
+                        "classification": null,
+                        "category": null,
+                        "severity": null
+                    }
+                },
+                {
+                    "column": "payment_status",
+                    "business_description": "The current lifecycle state of the payment transaction, such as pending, completed, or failed.",
+                    "privacy": {
+                        "is_sensitive": false,
+                        "classification": null,
+                        "category": null,
+                        "severity": null
+                    }
+                }
+            ]
+        },
+        {
+            "business_domain": "Product Catalog",
+            "table_name": "dim_products",
+            "table_description": "Reference data for products, including product descriptions, categorization, and current pricing.",
+            "columns": [
+                {
+                    "column": "product_id",
+                    "business_description": "Unique identifier assigned to a specific product within the enterprise catalog system.",
+                    "privacy": {
+                        "is_sensitive": false,
+                        "classification": null,
+                        "category": null,
+                        "severity": null
+                    }
+                },
+                {
+                    "column": "product_name",
+                    "business_description": "The official commercial name or label used to identify a product in customer-facing and internal documentation.",
+                    "privacy": {
+                        "is_sensitive": false,
+                        "classification": null,
+                        "category": null,
+                        "severity": null
+                    }
+                },
+                {
+                    "column": "category",
+                    "business_description": "The hierarchical classification segment to which the product belongs for reporting and inventory management purposes.",
+                    "privacy": {
+                        "is_sensitive": false,
+                        "classification": null,
+                        "category": null,
+                        "severity": null
+                    }
+                },
+                {
+                    "column": "unit_price",
+                    "business_description": "The current standard selling price per unit of the product as defined in the master pricing catalog.",
+                    "privacy": {
+                        "is_sensitive": false,
+                        "classification": null,
+                        "category": null,
+                        "severity": null
+                    }
+                }
+            ]
+        }
+    ]
+}

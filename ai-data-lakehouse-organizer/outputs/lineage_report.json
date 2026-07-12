@@ -1,0 +1,624 @@
+{
+    "metadata": {
+        "version": "2.1",
+        "generator": "AI Data Lakehouse Organizer",
+        "generated_at": "2026-07-12T07:57:14+00:00",
+        "pipeline_stage": "Silver Layer Preparation",
+        "source_system": "CSV",
+        "target_platform": "Google BigQuery"
+    },
+    "summary": {
+        "version": "2.1",
+        "generated_at": "2026-07-12T07:57:14+00:00",
+        "tables": 6,
+        "source_tables": 6,
+        "target_tables": 6,
+        "column_mappings": 28,
+        "business_domains": 5,
+        "sensitive_columns": 2,
+        "renamed_columns": 26,
+        "direct_copy_columns": 2
+    },
+    "tables": [
+        {
+            "business_domain": "Customer Management",
+            "table_description": "Contains consolidated customer profile information including identity and registration date.",
+            "source_layer": "Bronze",
+            "target_layer": "Silver",
+            "source_table": "cust_info_final",
+            "target_table": "dim_customers",
+            "columns": [
+                {
+                    "lineage_id": "LIN-000001",
+                    "source_column": "CUST_ID",
+                    "target_column": "customer_id",
+                    "source_data_type": "str",
+                    "quality": {
+                        "row_count": 6,
+                        "null_percentage": 0.0,
+                        "uniqueness_ratio": 0.83
+                    },
+                    "privacy": {
+                        "is_sensitive": false
+                    },
+                    "transformation": {
+                        "type": "RENAME",
+                        "category": "COLUMN_STANDARDIZATION"
+                    },
+                    "mapping_confidence": 100
+                },
+                {
+                    "lineage_id": "LIN-000002",
+                    "source_column": "FULL_NM",
+                    "target_column": "FULL_NM",
+                    "source_data_type": "str",
+                    "quality": {
+                        "row_count": 6,
+                        "null_percentage": 0.0,
+                        "uniqueness_ratio": 0.83
+                    },
+                    "privacy": {
+                        "is_sensitive": true,
+                        "classification": "PERSON_NAME",
+                        "category": "PII",
+                        "severity": "HIGH",
+                        "action": "MASK"
+                    },
+                    "transformation": {
+                        "type": "DIRECT_COPY",
+                        "category": "PASS_THROUGH"
+                    },
+                    "mapping_confidence": 100
+                },
+                {
+                    "lineage_id": "LIN-000003",
+                    "source_column": "EMAIL_ID",
+                    "target_column": "EMAIL_ID",
+                    "source_data_type": "str",
+                    "quality": {
+                        "row_count": 6,
+                        "null_percentage": 33.33,
+                        "uniqueness_ratio": 1.0
+                    },
+                    "privacy": {
+                        "is_sensitive": true,
+                        "classification": "EMAIL_ADDRESS",
+                        "category": "PII",
+                        "severity": "HIGH",
+                        "action": "MASK"
+                    },
+                    "transformation": {
+                        "type": "DIRECT_COPY",
+                        "category": "PASS_THROUGH"
+                    },
+                    "mapping_confidence": 100
+                },
+                {
+                    "lineage_id": "LIN-000004",
+                    "source_column": "JOIN_DT",
+                    "target_column": "registration_date",
+                    "source_data_type": "str",
+                    "quality": {
+                        "row_count": 6,
+                        "null_percentage": 0.0,
+                        "uniqueness_ratio": 0.83
+                    },
+                    "privacy": {
+                        "is_sensitive": false
+                    },
+                    "transformation": {
+                        "type": "RENAME",
+                        "category": "COLUMN_STANDARDIZATION"
+                    },
+                    "mapping_confidence": 100
+                }
+            ]
+        },
+        {
+            "business_domain": "Logistics",
+            "table_description": "Tracks shipment status, courier assignments, and delivery progress for customer orders.",
+            "source_layer": "Bronze",
+            "target_layer": "Silver",
+            "source_table": "delivery_tracking",
+            "target_table": "fact_deliveries",
+            "columns": [
+                {
+                    "lineage_id": "LIN-000005",
+                    "source_column": "TRACK_ID",
+                    "target_column": "tracking_id",
+                    "source_data_type": "str",
+                    "quality": {
+                        "row_count": 5,
+                        "null_percentage": 0.0,
+                        "uniqueness_ratio": 1.0
+                    },
+                    "privacy": {
+                        "is_sensitive": false
+                    },
+                    "transformation": {
+                        "type": "RENAME",
+                        "category": "COLUMN_STANDARDIZATION"
+                    },
+                    "mapping_confidence": 100
+                },
+                {
+                    "lineage_id": "LIN-000006",
+                    "source_column": "ORDER_REFERENCE",
+                    "target_column": "order_id",
+                    "source_data_type": "str",
+                    "quality": {
+                        "row_count": 5,
+                        "null_percentage": 0.0,
+                        "uniqueness_ratio": 1.0
+                    },
+                    "privacy": {
+                        "is_sensitive": false
+                    },
+                    "transformation": {
+                        "type": "RENAME",
+                        "category": "COLUMN_STANDARDIZATION"
+                    },
+                    "mapping_confidence": 100
+                },
+                {
+                    "lineage_id": "LIN-000007",
+                    "source_column": "COURIER_NM",
+                    "target_column": "courier_name",
+                    "source_data_type": "str",
+                    "quality": {
+                        "row_count": 5,
+                        "null_percentage": 20.0,
+                        "uniqueness_ratio": 1.0
+                    },
+                    "privacy": {
+                        "is_sensitive": false
+                    },
+                    "transformation": {
+                        "type": "RENAME",
+                        "category": "COLUMN_STANDARDIZATION"
+                    },
+                    "mapping_confidence": 100
+                },
+                {
+                    "lineage_id": "LIN-000008",
+                    "source_column": "SHIP_DT",
+                    "target_column": "shipment_date",
+                    "source_data_type": "str",
+                    "quality": {
+                        "row_count": 5,
+                        "null_percentage": 20.0,
+                        "uniqueness_ratio": 1.0
+                    },
+                    "privacy": {
+                        "is_sensitive": false
+                    },
+                    "transformation": {
+                        "type": "RENAME",
+                        "category": "COLUMN_STANDARDIZATION"
+                    },
+                    "mapping_confidence": 100
+                },
+                {
+                    "lineage_id": "LIN-000009",
+                    "source_column": "DELIVERY_STATUS",
+                    "target_column": "delivery_status",
+                    "source_data_type": "str",
+                    "quality": {
+                        "row_count": 5,
+                        "null_percentage": 0.0,
+                        "uniqueness_ratio": 1.0
+                    },
+                    "privacy": {
+                        "is_sensitive": false
+                    },
+                    "transformation": {
+                        "type": "RENAME",
+                        "category": "COLUMN_STANDARDIZATION"
+                    },
+                    "mapping_confidence": 100
+                }
+            ]
+        },
+        {
+            "business_domain": "Sales",
+            "table_description": "Centralized record of customer orders, including order status, dates, and total transaction amounts.",
+            "source_layer": "Bronze",
+            "target_layer": "Silver",
+            "source_table": "order_dump_2025",
+            "target_table": "fact_orders",
+            "columns": [
+                {
+                    "lineage_id": "LIN-000010",
+                    "source_column": "ORD_ID",
+                    "target_column": "order_id",
+                    "source_data_type": "str",
+                    "quality": {
+                        "row_count": 6,
+                        "null_percentage": 0.0,
+                        "uniqueness_ratio": 1.0
+                    },
+                    "privacy": {
+                        "is_sensitive": false
+                    },
+                    "transformation": {
+                        "type": "RENAME",
+                        "category": "COLUMN_STANDARDIZATION"
+                    },
+                    "mapping_confidence": 100
+                },
+                {
+                    "lineage_id": "LIN-000011",
+                    "source_column": "CUST_REF",
+                    "target_column": "customer_id",
+                    "source_data_type": "str",
+                    "quality": {
+                        "row_count": 6,
+                        "null_percentage": 0.0,
+                        "uniqueness_ratio": 1.0
+                    },
+                    "privacy": {
+                        "is_sensitive": false
+                    },
+                    "transformation": {
+                        "type": "RENAME",
+                        "category": "COLUMN_STANDARDIZATION"
+                    },
+                    "mapping_confidence": 100
+                },
+                {
+                    "lineage_id": "LIN-000012",
+                    "source_column": "ORD_DT",
+                    "target_column": "order_date",
+                    "source_data_type": "str",
+                    "quality": {
+                        "row_count": 6,
+                        "null_percentage": 16.67,
+                        "uniqueness_ratio": 1.0
+                    },
+                    "privacy": {
+                        "is_sensitive": false
+                    },
+                    "transformation": {
+                        "type": "RENAME",
+                        "category": "COLUMN_STANDARDIZATION"
+                    },
+                    "mapping_confidence": 100
+                },
+                {
+                    "lineage_id": "LIN-000013",
+                    "source_column": "ORDER_STATUS",
+                    "target_column": "order_status",
+                    "source_data_type": "str",
+                    "quality": {
+                        "row_count": 6,
+                        "null_percentage": 0.0,
+                        "uniqueness_ratio": 1.0
+                    },
+                    "privacy": {
+                        "is_sensitive": false
+                    },
+                    "transformation": {
+                        "type": "RENAME",
+                        "category": "COLUMN_STANDARDIZATION"
+                    },
+                    "mapping_confidence": 100
+                },
+                {
+                    "lineage_id": "LIN-000014",
+                    "source_column": "TOTAL_AMT",
+                    "target_column": "total_amount",
+                    "source_data_type": "float64",
+                    "quality": {
+                        "row_count": 6,
+                        "null_percentage": 16.67,
+                        "uniqueness_ratio": 1.0
+                    },
+                    "privacy": {
+                        "is_sensitive": false
+                    },
+                    "transformation": {
+                        "type": "RENAME",
+                        "category": "COLUMN_STANDARDIZATION"
+                    },
+                    "mapping_confidence": 100
+                }
+            ]
+        },
+        {
+            "business_domain": "Sales",
+            "table_description": "Detailed line items associated with customer orders, referencing products and quantities purchased.",
+            "source_layer": "Bronze",
+            "target_layer": "Silver",
+            "source_table": "order_items_new",
+            "target_table": "fact_order_items",
+            "columns": [
+                {
+                    "lineage_id": "LIN-000015",
+                    "source_column": "ITEM_ID",
+                    "target_column": "order_item_id",
+                    "source_data_type": "str",
+                    "quality": {
+                        "row_count": 6,
+                        "null_percentage": 0.0,
+                        "uniqueness_ratio": 1.0
+                    },
+                    "privacy": {
+                        "is_sensitive": false
+                    },
+                    "transformation": {
+                        "type": "RENAME",
+                        "category": "COLUMN_STANDARDIZATION"
+                    },
+                    "mapping_confidence": 100
+                },
+                {
+                    "lineage_id": "LIN-000016",
+                    "source_column": "ORDER_REF",
+                    "target_column": "order_id",
+                    "source_data_type": "str",
+                    "quality": {
+                        "row_count": 6,
+                        "null_percentage": 0.0,
+                        "uniqueness_ratio": 0.83
+                    },
+                    "privacy": {
+                        "is_sensitive": false
+                    },
+                    "transformation": {
+                        "type": "RENAME",
+                        "category": "COLUMN_STANDARDIZATION"
+                    },
+                    "mapping_confidence": 100
+                },
+                {
+                    "lineage_id": "LIN-000017",
+                    "source_column": "PRODUCT_REF",
+                    "target_column": "product_id",
+                    "source_data_type": "str",
+                    "quality": {
+                        "row_count": 6,
+                        "null_percentage": 0.0,
+                        "uniqueness_ratio": 0.83
+                    },
+                    "privacy": {
+                        "is_sensitive": false
+                    },
+                    "transformation": {
+                        "type": "RENAME",
+                        "category": "COLUMN_STANDARDIZATION"
+                    },
+                    "mapping_confidence": 100
+                },
+                {
+                    "lineage_id": "LIN-000018",
+                    "source_column": "QTY",
+                    "target_column": "quantity",
+                    "source_data_type": "int64",
+                    "quality": {
+                        "row_count": 6,
+                        "null_percentage": 0.0,
+                        "uniqueness_ratio": 0.83
+                    },
+                    "privacy": {
+                        "is_sensitive": false
+                    },
+                    "transformation": {
+                        "type": "RENAME",
+                        "category": "COLUMN_STANDARDIZATION"
+                    },
+                    "mapping_confidence": 100
+                },
+                {
+                    "lineage_id": "LIN-000019",
+                    "source_column": "UNIT_PRICE",
+                    "target_column": "unit_price",
+                    "source_data_type": "float64",
+                    "quality": {
+                        "row_count": 6,
+                        "null_percentage": 16.67,
+                        "uniqueness_ratio": 0.8
+                    },
+                    "privacy": {
+                        "is_sensitive": false
+                    },
+                    "transformation": {
+                        "type": "RENAME",
+                        "category": "COLUMN_STANDARDIZATION"
+                    },
+                    "mapping_confidence": 100
+                }
+            ]
+        },
+        {
+            "business_domain": "Finance",
+            "table_description": "Captures payment transaction details linked to customer orders, including status and mode of payment.",
+            "source_layer": "Bronze",
+            "target_layer": "Silver",
+            "source_table": "payment_txns_v2",
+            "target_table": "fact_payments",
+            "columns": [
+                {
+                    "lineage_id": "LIN-000020",
+                    "source_column": "PAYMENT_ID",
+                    "target_column": "payment_id",
+                    "source_data_type": "str",
+                    "quality": {
+                        "row_count": 5,
+                        "null_percentage": 0.0,
+                        "uniqueness_ratio": 0.8
+                    },
+                    "privacy": {
+                        "is_sensitive": false
+                    },
+                    "transformation": {
+                        "type": "RENAME",
+                        "category": "COLUMN_STANDARDIZATION"
+                    },
+                    "mapping_confidence": 100
+                },
+                {
+                    "lineage_id": "LIN-000021",
+                    "source_column": "ORDER_ID_REF",
+                    "target_column": "order_id",
+                    "source_data_type": "str",
+                    "quality": {
+                        "row_count": 5,
+                        "null_percentage": 0.0,
+                        "uniqueness_ratio": 0.8
+                    },
+                    "privacy": {
+                        "is_sensitive": false
+                    },
+                    "transformation": {
+                        "type": "RENAME",
+                        "category": "COLUMN_STANDARDIZATION"
+                    },
+                    "mapping_confidence": 100
+                },
+                {
+                    "lineage_id": "LIN-000022",
+                    "source_column": "PAY_MODE",
+                    "target_column": "payment_method",
+                    "source_data_type": "str",
+                    "quality": {
+                        "row_count": 5,
+                        "null_percentage": 40.0,
+                        "uniqueness_ratio": 1.0
+                    },
+                    "privacy": {
+                        "is_sensitive": false
+                    },
+                    "transformation": {
+                        "type": "RENAME",
+                        "category": "COLUMN_STANDARDIZATION"
+                    },
+                    "mapping_confidence": 100
+                },
+                {
+                    "lineage_id": "LIN-000023",
+                    "source_column": "PAYMENT_AMT",
+                    "target_column": "payment_amount",
+                    "source_data_type": "float64",
+                    "quality": {
+                        "row_count": 5,
+                        "null_percentage": 0.0,
+                        "uniqueness_ratio": 0.8
+                    },
+                    "privacy": {
+                        "is_sensitive": false
+                    },
+                    "transformation": {
+                        "type": "RENAME",
+                        "category": "COLUMN_STANDARDIZATION"
+                    },
+                    "mapping_confidence": 100
+                },
+                {
+                    "lineage_id": "LIN-000024",
+                    "source_column": "PAYMENT_STATUS",
+                    "target_column": "payment_status",
+                    "source_data_type": "str",
+                    "quality": {
+                        "row_count": 5,
+                        "null_percentage": 0.0,
+                        "uniqueness_ratio": 0.8
+                    },
+                    "privacy": {
+                        "is_sensitive": false
+                    },
+                    "transformation": {
+                        "type": "RENAME",
+                        "category": "COLUMN_STANDARDIZATION"
+                    },
+                    "mapping_confidence": 100
+                }
+            ]
+        },
+        {
+            "business_domain": "Product Catalog",
+            "table_description": "Reference data for products, including product descriptions, categorization, and current pricing.",
+            "source_layer": "Bronze",
+            "target_layer": "Silver",
+            "source_table": "product_master_old",
+            "target_table": "dim_products",
+            "columns": [
+                {
+                    "lineage_id": "LIN-000025",
+                    "source_column": "PROD_CODE",
+                    "target_column": "product_id",
+                    "source_data_type": "str",
+                    "quality": {
+                        "row_count": 5,
+                        "null_percentage": 0.0,
+                        "uniqueness_ratio": 1.0
+                    },
+                    "privacy": {
+                        "is_sensitive": false
+                    },
+                    "transformation": {
+                        "type": "RENAME",
+                        "category": "COLUMN_STANDARDIZATION"
+                    },
+                    "mapping_confidence": 100
+                },
+                {
+                    "lineage_id": "LIN-000026",
+                    "source_column": "PROD_NM",
+                    "target_column": "product_name",
+                    "source_data_type": "str",
+                    "quality": {
+                        "row_count": 5,
+                        "null_percentage": 0.0,
+                        "uniqueness_ratio": 1.0
+                    },
+                    "privacy": {
+                        "is_sensitive": false
+                    },
+                    "transformation": {
+                        "type": "RENAME",
+                        "category": "COLUMN_STANDARDIZATION"
+                    },
+                    "mapping_confidence": 100
+                },
+                {
+                    "lineage_id": "LIN-000027",
+                    "source_column": "CATEGORY",
+                    "target_column": "category",
+                    "source_data_type": "str",
+                    "quality": {
+                        "row_count": 5,
+                        "null_percentage": 20.0,
+                        "uniqueness_ratio": 1.0
+                    },
+                    "privacy": {
+                        "is_sensitive": false
+                    },
+                    "transformation": {
+                        "type": "RENAME",
+                        "category": "COLUMN_STANDARDIZATION"
+                    },
+                    "mapping_confidence": 100
+                },
+                {
+                    "lineage_id": "LIN-000028",
+                    "source_column": "PRICE",
+                    "target_column": "unit_price",
+                    "source_data_type": "float64",
+                    "quality": {
+                        "row_count": 5,
+                        "null_percentage": 0.0,
+                        "uniqueness_ratio": 1.0
+                    },
+                    "privacy": {
+                        "is_sensitive": false
+                    },
+                    "transformation": {
+                        "type": "RENAME",
+                        "category": "COLUMN_STANDARDIZATION"
+                    },
+                    "mapping_confidence": 100
+                }
+            ]
+        }
+    ]
+}

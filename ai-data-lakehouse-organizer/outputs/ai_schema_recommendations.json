@@ -1,0 +1,80 @@
+{
+    "tables": [
+        {
+            "current_table_name": "cust_info_final",
+            "business_domain": "Customer Management",
+            "recommended_table_name": "dim_customers",
+            "table_description": "Contains consolidated customer profile information including identity and registration date.",
+            "recommended_columns": {
+                "CUST_ID": "customer_id",
+                "<PERSON_NAME>": "<PERSON_NAME>",
+                "<EMAIL_ADDRESS>": "<EMAIL_ADDRESS>",
+                "JOIN_DT": "registration_date"
+            }
+        },
+        {
+            "current_table_name": "delivery_tracking",
+            "business_domain": "Logistics",
+            "recommended_table_name": "fact_deliveries",
+            "table_description": "Tracks shipment status, courier assignments, and delivery progress for customer orders.",
+            "recommended_columns": {
+                "TRACK_ID": "tracking_id",
+                "ORDER_REFERENCE": "order_id",
+                "COURIER_NM": "courier_name",
+                "SHIP_DT": "shipment_date",
+                "DELIVERY_STATUS": "delivery_status"
+            }
+        },
+        {
+            "current_table_name": "order_dump_2025",
+            "business_domain": "Sales",
+            "recommended_table_name": "fact_orders",
+            "table_description": "Centralized record of customer orders, including order status, dates, and total transaction amounts.",
+            "recommended_columns": {
+                "ORD_ID": "order_id",
+                "CUST_REF": "customer_id",
+                "ORD_DT": "order_date",
+                "ORDER_STATUS": "order_status",
+                "TOTAL_AMT": "total_amount"
+            }
+        },
+        {
+            "current_table_name": "order_items_new",
+            "business_domain": "Sales",
+            "recommended_table_name": "fact_order_items",
+            "table_description": "Detailed line items associated with customer orders, referencing products and quantities purchased.",
+            "recommended_columns": {
+                "ITEM_ID": "order_item_id",
+                "ORDER_REF": "order_id",
+                "PRODUCT_REF": "product_id",
+                "QTY": "quantity",
+                "UNIT_PRICE": "unit_price"
+            }
+        },
+        {
+            "current_table_name": "payment_txns_v2",
+            "business_domain": "Finance",
+            "recommended_table_name": "fact_payments",
+            "table_description": "Captures payment transaction details linked to customer orders, including status and mode of payment.",
+            "recommended_columns": {
+                "PAYMENT_ID": "payment_id",
+                "ORDER_ID_REF": "order_id",
+                "PAY_MODE": "payment_method",
+                "PAYMENT_AMT": "payment_amount",
+                "PAYMENT_STATUS": "payment_status"
+            }
+        },
+        {
+            "current_table_name": "product_master_old",
+            "business_domain": "Product Catalog",
+            "recommended_table_name": "dim_products",
+            "table_description": "Reference data for products, including product descriptions, categorization, and current pricing.",
+            "recommended_columns": {
+                "PROD_CODE": "product_id",
+                "PROD_NM": "product_name",
+                "CATEGORY": "category",
+                "PRICE": "unit_price"
+            }
+        }
+    ]
+}

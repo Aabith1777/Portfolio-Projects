@@ -1,0 +1,302 @@
+[
+    {
+        "table_name": "cust_info_final",
+        "file_name": "cust_info_final.csv",
+        "row_count": 6,
+        "column_count": 4,
+        "columns": [
+            {
+                "column_name": "CUST_ID",
+                "data_type": "str",
+                "row_count": 6,
+                "null_count": 0,
+                "null_percentage": 0.0,
+                "unique_count": 5,
+                "uniqueness_ratio": 0.83
+            },
+            {
+                "column_name": "FULL_NM",
+                "data_type": "str",
+                "row_count": 6,
+                "null_count": 0,
+                "null_percentage": 0.0,
+                "unique_count": 5,
+                "uniqueness_ratio": 0.83
+            },
+            {
+                "column_name": "EMAIL_ID",
+                "data_type": "str",
+                "row_count": 6,
+                "null_count": 2,
+                "null_percentage": 33.33,
+                "unique_count": 4,
+                "uniqueness_ratio": 1.0
+            },
+            {
+                "column_name": "JOIN_DT",
+                "data_type": "str",
+                "row_count": 6,
+                "null_count": 0,
+                "null_percentage": 0.0,
+                "unique_count": 5,
+                "uniqueness_ratio": 0.83
+            }
+        ]
+    },
+    {
+        "table_name": "delivery_tracking",
+        "file_name": "delivery_tracking.csv",
+        "row_count": 5,
+        "column_count": 5,
+        "columns": [
+            {
+                "column_name": "TRACK_ID",
+                "data_type": "str",
+                "row_count": 5,
+                "null_count": 0,
+                "null_percentage": 0.0,
+                "unique_count": 5,
+                "uniqueness_ratio": 1.0
+            },
+            {
+                "column_name": "ORDER_REFERENCE",
+                "data_type": "str",
+                "row_count": 5,
+                "null_count": 0,
+                "null_percentage": 0.0,
+                "unique_count": 5,
+                "uniqueness_ratio": 1.0
+            },
+            {
+                "column_name": "COURIER_NM",
+                "data_type": "str",
+                "row_count": 5,
+                "null_count": 1,
+                "null_percentage": 20.0,
+                "unique_count": 4,
+                "uniqueness_ratio": 1.0
+            },
+            {
+                "column_name": "SHIP_DT",
+                "data_type": "str",
+                "row_count": 5,
+                "null_count": 1,
+                "null_percentage": 20.0,
+                "unique_count": 4,
+                "uniqueness_ratio": 1.0
+            },
+            {
+                "column_name": "DELIVERY_STATUS",
+                "data_type": "str",
+                "row_count": 5,
+                "null_count": 0,
+                "null_percentage": 0.0,
+                "unique_count": 5,
+                "uniqueness_ratio": 1.0
+            }
+        ]
+    },
+    {
+        "table_name": "order_dump_2025",
+        "file_name": "order_dump_2025.csv",
+        "row_count": 6,
+        "column_count": 5,
+        "columns": [
+            {
+                "column_name": "ORD_ID",
+                "data_type": "str",
+                "row_count": 6,
+                "null_count": 0,
+                "null_percentage": 0.0,
+                "unique_count": 6,
+                "uniqueness_ratio": 1.0
+            },
+            {
+                "column_name": "CUST_REF",
+                "data_type": "str",
+                "row_count": 6,
+                "null_count": 0,
+                "null_percentage": 0.0,
+                "unique_count": 6,
+                "uniqueness_ratio": 1.0
+            },
+            {
+                "column_name": "ORD_DT",
+                "data_type": "str",
+                "row_count": 6,
+                "null_count": 1,
+                "null_percentage": 16.67,
+                "unique_count": 5,
+                "uniqueness_ratio": 1.0
+            },
+            {
+                "column_name": "ORDER_STATUS",
+                "data_type": "str",
+                "row_count": 6,
+                "null_count": 0,
+                "null_percentage": 0.0,
+                "unique_count": 6,
+                "uniqueness_ratio": 1.0
+            },
+            {
+                "column_name": "TOTAL_AMT",
+                "data_type": "float64",
+                "row_count": 6,
+                "null_count": 1,
+                "null_percentage": 16.67,
+                "unique_count": 5,
+                "uniqueness_ratio": 1.0
+            }
+        ]
+    },
+    {
+        "table_name": "order_items_new",
+        "file_name": "order_items_new.csv",
+        "row_count": 6,
+        "column_count": 5,
+        "columns": [
+            {
+                "column_name": "ITEM_ID",
+                "data_type": "str",
+                "row_count": 6,
+                "null_count": 0,
+                "null_percentage": 0.0,
+                "unique_count": 6,
+                "uniqueness_ratio": 1.0
+            },
+            {
+                "column_name": "ORDER_REF",
+                "data_type": "str",
+                "row_count": 6,
+                "null_count": 0,
+                "null_percentage": 0.0,
+                "unique_count": 5,
+                "uniqueness_ratio": 0.83
+            },
+            {
+                "column_name": "PRODUCT_REF",
+                "data_type": "str",
+                "row_count": 6,
+                "null_count": 0,
+                "null_percentage": 0.0,
+                "unique_count": 5,
+                "uniqueness_ratio": 0.83
+            },
+            {
+                "column_name": "QTY",
+                "data_type": "int64",
+                "row_count": 6,
+                "null_count": 0,
+                "null_percentage": 0.0,
+                "unique_count": 5,
+                "uniqueness_ratio": 0.83
+            },
+            {
+                "column_name": "UNIT_PRICE",
+                "data_type": "float64",
+                "row_count": 6,
+                "null_count": 1,
+                "null_percentage": 16.67,
+                "unique_count": 4,
+                "uniqueness_ratio": 0.8
+            }
+        ]
+    },
+    {
+        "table_name": "payment_txns_v2",
+        "file_name": "payment_txns_v2.csv",
+        "row_count": 5,
+        "column_count": 5,
+        "columns": [
+            {
+                "column_name": "PAYMENT_ID",
+                "data_type": "str",
+                "row_count": 5,
+                "null_count": 0,
+                "null_percentage": 0.0,
+                "unique_count": 4,
+                "uniqueness_ratio": 0.8
+            },
+            {
+                "column_name": "ORDER_ID_REF",
+                "data_type": "str",
+                "row_count": 5,
+                "null_count": 0,
+                "null_percentage": 0.0,
+                "unique_count": 4,
+                "uniqueness_ratio": 0.8
+            },
+            {
+                "column_name": "PAY_MODE",
+                "data_type": "str",
+                "row_count": 5,
+                "null_count": 2,
+                "null_percentage": 40.0,
+                "unique_count": 3,
+                "uniqueness_ratio": 1.0
+            },
+            {
+                "column_name": "PAYMENT_AMT",
+                "data_type": "float64",
+                "row_count": 5,
+                "null_count": 0,
+                "null_percentage": 0.0,
+                "unique_count": 4,
+                "uniqueness_ratio": 0.8
+            },
+            {
+                "column_name": "PAYMENT_STATUS",
+                "data_type": "str",
+                "row_count": 5,
+                "null_count": 0,
+                "null_percentage": 0.0,
+                "unique_count": 4,
+                "uniqueness_ratio": 0.8
+            }
+        ]
+    },
+    {
+        "table_name": "product_master_old",
+        "file_name": "product_master_old.csv",
+        "row_count": 5,
+        "column_count": 4,
+        "columns": [
+            {
+                "column_name": "PROD_CODE",
+                "data_type": "str",
+                "row_count": 5,
+                "null_count": 0,
+                "null_percentage": 0.0,
+                "unique_count": 5,
+                "uniqueness_ratio": 1.0
+            },
+            {
+                "column_name": "PROD_NM",
+                "data_type": "str",
+                "row_count": 5,
+                "null_count": 0,
+                "null_percentage": 0.0,
+                "unique_count": 5,
+                "uniqueness_ratio": 1.0
+            },
+            {
+                "column_name": "CATEGORY",
+                "data_type": "str",
+                "row_count": 5,
+                "null_count": 1,
+                "null_percentage": 20.0,
+                "unique_count": 4,
+                "uniqueness_ratio": 1.0
+            },
+            {
+                "column_name": "PRICE",
+                "data_type": "float64",
+                "row_count": 5,
+                "null_count": 0,
+                "null_percentage": 0.0,
+                "unique_count": 5,
+                "uniqueness_ratio": 1.0
+            }
+        ]
+    }
+]

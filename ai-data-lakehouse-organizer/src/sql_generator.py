@@ -1,0 +1,253 @@
+import json
+from pathlib import Path
+
+
+AI_RECOMMENDATIONS_PATH = Path(
+    "outputs/ai_schema_recommendations.json"
+)
+
+QUALITY_REPORT_PATH = Path(
+    "outputs/data_quality_report.json"
+)
+
+SQL_OUTPUT_PATH = Path("sql/silver")
+
+
+def load_json(file_path):
+    """Load data from a JSON file."""
+
+    with open(file_path, "r") as file:
+        return json.load(file)
+
+
+def get_table_quality_issues(
+    quality_reports,
+    table_name
+):
+    """Return all quality issues for one table."""
+
+    for report in quality_reports:
+        if report["table_name"] == table_name:
+            return report["issues"]
+
+    return []
+
+
+def get_column_issues(issues, column_name):
+    """Return all quality issue types for one column."""
+
+    return {
+        issue["issue_type"]
+        for issue in issues
+        if issue["column"] == column_name
+    }
+
+
+def has_table_issue(issues, issue_type):
+    """Check whether a table-level issue exists."""
+
+    return any(
+        issue["issue_type"] == issue_type
+        for issue in issues
+    )
+
+
+def is_date_column(column_name):
+    """Check whether a column name looks like a date column."""
+
+    column_upper = column_name.upper()
+
+    date_patterns = [
+        "DATE",
+        "_DT"
+    ]
+
+    return any(
+        pattern in column_upper
+        for pattern in date_patterns
+    )
+
+
+def build_date_expression(source_column):
+    """Build BigQuery SQL for mixed date formats."""
+
+    source = f"`{source_column}`"
+
+    return f"""COALESCE(
+        SAFE.PARSE_DATE('%Y-%m-%d', {source}),
+        SAFE.PARSE_DATE('%d-%m-%Y', {source}),
+        SAFE.PARSE_DATE('%d/%m/%Y', {source}),
+        SAFE.PARSE_DATE('%Y/%m/%d', {source}),
+        SAFE.PARSE_DATE('%m-%d-%Y', {source}),
+        SAFE.PARSE_DATE('%b %d %Y', {source})
+    )"""
+
+
+def build_column_expression(
+    source_column,
+    target_column,
+    column_issues
+):
+    """Build the SQL transformation for one column."""
+
+    expression = f"`{source_column}`"
+
+    # Apply date parsing first
+    if is_date_column(source_column):
+        expression = build_date_expression(
+            source_column
+        )
+
+    else:
+        # Remove leading and trailing spaces
+        if "whitespace_issue" in column_issues:
+            expression = f"TRIM({expression})"
+
+        # Standardize text casing
+        if "inconsistent_casing" in column_issues:
+            expression = f"LOWER({expression})"
+
+    return f"    {expression} AS {target_column}"
+
+
+def build_numeric_quality_flag(
+    source_column,
+    target_column
+):
+    """Create a quality flag for zero or negative numeric values."""
+
+    return f"""    CASE
+        WHEN `{source_column}` <= 0 THEN TRUE
+        ELSE FALSE
+    END AS {target_column}_quality_flag"""
+
+
+def generate_table_sql(
+    table_recommendation,
+    quality_reports
+):
+    """Generate BigQuery Silver-layer SQL for one table."""
+
+    source_table = table_recommendation[
+        "current_table_name"
+    ]
+
+    recommended_table = table_recommendation[
+        "recommended_table_name"
+    ]
+
+    # Remove dimensional-model prefixes for Silver tables
+    target_table = (
+        recommended_table
+        .removeprefix("dim_")
+        .removeprefix("fact_")
+    )
+
+    issues = get_table_quality_issues(
+        quality_reports,
+        source_table
+    )
+
+    column_expressions = []
+
+    for source_column, target_column in (
+        table_recommendation[
+            "recommended_columns"
+        ].items()
+    ):
+        column_issues = get_column_issues(
+            issues,
+            source_column
+        )
+
+        # Create the cleaned column
+        expression = build_column_expression(
+            source_column,
+            target_column,
+            column_issues
+        )
+
+        column_expressions.append(expression)
+
+        # Add a quality flag for invalid numeric values
+        if "invalid_numeric_value" in column_issues:
+            quality_flag = build_numeric_quality_flag(
+                source_column,
+                target_column
+            )
+
+            column_expressions.append(
+                quality_flag
+            )
+
+    select_columns = ",\n".join(
+        column_expressions
+    )
+
+    # Remove exact duplicate rows when detected
+    if has_table_issue(
+        issues,
+        "duplicate_rows"
+    ):
+        select_keyword = "SELECT DISTINCT"
+    else:
+        select_keyword = "SELECT"
+
+    sql = f"""CREATE OR REPLACE TABLE `silver.{target_table}` AS
+
+{select_keyword}
+{select_columns}
+
+FROM `bronze.{source_table}`;
+"""
+
+    return target_table, sql
+
+
+def main():
+    recommendations = load_json(
+        AI_RECOMMENDATIONS_PATH
+    )
+
+    quality_reports = load_json(
+        QUALITY_REPORT_PATH
+    )
+
+    SQL_OUTPUT_PATH.mkdir(
+    parents=True,
+    exist_ok=True
+)
+
+    # Remove SQL files generated by the previous pipeline run
+    for old_sql_file in SQL_OUTPUT_PATH.glob("*.sql"):
+        old_sql_file.unlink()
+
+    generated_count = 0
+
+    for table_recommendation in recommendations["tables"]:
+
+        target_table, sql = generate_table_sql(
+            table_recommendation,
+            quality_reports
+        )
+
+        output_file = (
+            SQL_OUTPUT_PATH
+            / f"{target_table}.sql"
+        )
+
+        with open(output_file, "w") as file:
+            file.write(sql)
+
+        print(f"Generated: {output_file}")
+
+        generated_count += 1
+
+    print("\nEnhanced SQL generation completed!")
+    print(
+        f"SQL files generated: {generated_count}"
+    )
+
+
+if __name__ == "__main__":
+    main()

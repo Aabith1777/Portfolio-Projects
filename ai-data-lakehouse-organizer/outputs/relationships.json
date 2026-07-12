@@ -1,0 +1,60 @@
+[
+    {
+        "parent_table": "cust_info_final",
+        "parent_column": "CUST_ID",
+        "child_table": "order_dump_2025",
+        "child_column": "CUST_REF",
+        "match_percentage": 83.33,
+        "matched_value_count": 5,
+        "orphan_value_count": 1,
+        "orphan_values": [
+            "C999"
+        ]
+    },
+    {
+        "parent_table": "order_dump_2025",
+        "parent_column": "ORD_ID",
+        "child_table": "delivery_tracking",
+        "child_column": "ORDER_REFERENCE",
+        "match_percentage": 80.0,
+        "matched_value_count": 4,
+        "orphan_value_count": 1,
+        "orphan_values": [
+            "O8888"
+        ]
+    },
+    {
+        "parent_table": "order_dump_2025",
+        "parent_column": "ORD_ID",
+        "child_table": "order_items_new",
+        "child_column": "ORDER_REF",
+        "match_percentage": 80.0,
+        "matched_value_count": 4,
+        "orphan_value_count": 1,
+        "orphan_values": [
+            "O9999"
+        ]
+    },
+    {
+        "parent_table": "order_dump_2025",
+        "parent_column": "ORD_ID",
+        "child_table": "payment_txns_v2",
+        "child_column": "ORDER_ID_REF",
+        "match_percentage": 100.0,
+        "matched_value_count": 4,
+        "orphan_value_count": 0,
+        "orphan_values": []
+    },
+    {
+        "parent_table": "product_master_old",
+        "parent_column": "PROD_CODE",
+        "child_table": "order_items_new",
+        "child_column": "PRODUCT_REF",
+        "match_percentage": 80.0,
+        "matched_value_count": 4,
+        "orphan_value_count": 1,
+        "orphan_values": [
+            "P999"
+        ]
+    }
+]
