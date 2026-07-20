@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PromptVault | Your Personal AI Prompt Library</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="A premium, production-quality offline personal AI prompt library. Browse, search, organize, and copy high-performance prompt templates.">
+  <meta name="application-name" content="PromptVault">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- App Header -->
+  <header class="app-header">
+    <div class="logo-container" id="logo-branding" onclick="window.location.reload();">
+      <img src="assets/logo.svg" alt="PromptVault Logo" class="logo-img">
+      <div>
+        <h1 class="logo-text">PromptVault</h1>
+        <div class="logo-tagline">Your Personal AI Prompt Library</div>
+      </div>
+    </div>
+
+    <!-- Live Search Bar -->
+    <div class="header-search">
+      <svg class="header-search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+      <input type="text" id="main-search-input" placeholder="Search prompts, categories, tags, or content..." aria-label="Search Prompts">
+      <span class="header-search-shortcut">Ctrl+F</span>
+    </div>
+
+    <!-- Right Actions -->
+    <div class="header-actions">
+      <button class="btn-icon" id="btn-toggle-sidebar" title="Toggle Sidebar">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="9" y1="3" x2="9" y2="21"></line>
+        </svg>
+      </button>
+      <button class="btn-icon" id="btn-random" title="Random Prompt">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="16 3 21 3 21 8"></polyline>
+          <line x1="4" y1="20" x2="21" y2="3"></line>
+          <polyline points="21 16 21 21 16 21"></polyline>
+          <line x1="15" y1="15" x2="21" y2="21"></line>
+          <line x1="4" y1="4" x2="9" y2="9"></line>
+        </svg>
+      </button>
+      <button class="btn-icon" id="btn-toggle-theme" title="Toggle Theme (Ctrl+D)">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+      </button>
+      <button class="btn-icon" id="btn-settings" title="Settings & Backups">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- App Wrapper Grid -->
+  <div class="app-container">
+    
+    <!-- Left Sidebar: Categories Navigation -->
+    <nav class="app-sidebar" id="app-sidebar" aria-label="Sidebar navigation">
+      <div class="sidebar-scroll" id="sidebar-categories">
+        <!-- Rendered via JS -->
+      </div>
+    </nav>
+
+    <!-- Main Workspace Area -->
+    <main class="app-main">
+      
+      <!-- Center: Prompt List Pane -->
+      <section class="prompt-list-pane" aria-label="Prompts Directory">
+        
+        <!-- Stats Dashboard Dashboard -->
+        <div class="stats-dashboard" id="stats-dashboard-panel">
+          <div class="stat-card">
+            <span class="stat-num" id="stat-total">0</span>
+            <span class="stat-label">Total Prompts</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-num" id="stat-favorites">0</span>
+            <span class="stat-label">Favorites</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-num" id="stat-categories">0</span>
+            <span class="stat-label">Categories</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-num" id="stat-search">0</span>
+            <span class="stat-label">Search Queries</span>
+          </div>
+        </div>
+
+        <!-- Tip Widget -->
+        <div id="daily-tip-container">
+          <!-- Rendered via JS -->
+        </div>
+
+        <!-- Sorting & Difficulty Filters bar -->
+        <div class="filter-bar">
+          <div class="filter-left">
+            <select class="filter-select" id="difficulty-select" aria-label="Filter by Difficulty">
+              <option value="all">All Difficulties</option>
+              <option value="beginner">Beginner</option>
+              <option value="intermediate">Intermediate</option>
+              <option value="advanced">Advanced</option>
+            </select>
+            <select class="filter-select" id="sort-select" aria-label="Sort Order">
+              <option value="alphabetical">Sort: Alphabetical</option>
+              <option value="newest">Sort: Newest</option>
+              <option value="difficulty">Sort: Difficulty</option>
+            </select>
+          </div>
+          <div style="font-size:0.75rem; color:var(--text-muted); font-weight:600;">
+            Press <span class="kbd">Ctrl+K</span> to search commands
+          </div>
+        </div>
+
+        <!-- Prompt Cards scrolling list -->
+        <div class="prompt-list-scroll" id="prompt-cards-scroll-container">
+          <div id="prompt-cards-list" style="display:flex; flex-direction:column; gap:12px;">
+            <!-- Rendered via JS -->
+          </div>
+        </div>
+
+        <!-- Scroll to Top floating Button -->
+        <button class="scroll-to-top" id="scroll-to-top-btn" title="Scroll to Top" aria-label="Scroll to top">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="19" x2="12" y2="5"></line>
+            <polyline points="5 12 12 5 19 12"></polyline>
+          </svg>
+        </button>
+
+      </section>
+
+      <!-- Right: Detailed Specifications Pane -->
+      <section class="prompt-details-pane" id="prompt-details-pane" aria-label="Prompt Details">
+        <button class="btn-secondary" id="btn-details-back" style="margin:20px; display:none; align-items:center; gap:8px;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+          Back to List
+        </button>
+        <!-- Rendered via JS -->
+      </section>
+
+    </main>
+
+  </div>
+
+  <!-- Command Palette Modal (Ctrl + K) -->
+  <div class="modal-overlay" id="command-palette-overlay">
+    <div class="command-palette" id="command-palette-panel">
+      <div class="command-input-container">
+        <svg class="command-input-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" class="command-input" id="command-palette-input" placeholder="Type a command or prompt title..." autofocus>
+      </div>
+      <div class="command-results" id="command-palette-results">
+        <!-- Rendered via JS -->
+      </div>
+      <div class="command-help">
+        <div class="command-help-keys">
+          <span><span class="kbd">↑↓</span> Navigate</span>
+          <span><span class="kbd">Enter</span> Select</span>
+          <span><span class="kbd">Esc</span> Exit</span>
+        </div>
+        <span>PromptVault Command Suite</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Settings Dialog Modal -->
+  <div class="modal-overlay" id="settings-modal-overlay">
+    <div class="settings-modal">
+      <div class="settings-header">
+        <h3>System Settings & Management</h3>
+        <button class="btn-icon" id="btn-close-settings" title="Close">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="settings-body">
+        
+        <!-- Data Sync Section -->
+        <div class="settings-group">
+          <span class="settings-group-title">Import & Export data</span>
+          
+          <div class="settings-row">
+            <div class="settings-info">
+              <span class="settings-label">Export Backup JSON</span>
+              <span class="settings-desc">Save favorites and settings to local drive</span>
+            </div>
+            <button class="btn-primary" id="btn-export-backup">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              Export
+            </button>
+          </div>
+
+          <div class="settings-row">
+            <div class="settings-info">
+              <span class="settings-label">Import Backup JSON</span>
+              <span class="settings-desc">Restore favorites and settings from file</span>
+            </div>
+            <label class="btn-secondary" style="position:relative; cursor:pointer;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+              <span>Import</span>
+              <input type="file" id="file-import-backup" accept=".json" style="position:absolute; width:1px; height:1px; opacity:0; overflow:hidden;">
+            </label>
+          </div>
+        </div>
+
+        <!-- Factory Reset Section -->
+        <div class="settings-group" style="border-top: 1px solid var(--border-color); padding-top:16px;">
+          <span class="settings-group-title">Factory Reset</span>
+          
+          <div class="settings-row">
+            <div class="settings-info">
+              <span class="settings-label">Reset Bookmarks</span>
+              <span class="settings-desc">Clears all favorited flags</span>
+            </div>
+            <button class="btn-secondary" id="btn-reset-favorites" style="color:var(--danger); border-color:var(--danger-light); background:var(--danger-light);">
+              Reset Favorites
+            </button>
+          </div>
+
+          <div class="settings-row">
+            <div class="settings-info">
+              <span class="settings-label">Full Reset Engine</span>
+              <span class="settings-desc">Clear local caches and restore system defaults</span>
+            </div>
+            <button class="btn-primary" id="btn-reset-all" style="background-color:var(--danger);">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+              Factory Reset
+            </button>
+          </div>
+        </div>
+
+        <!-- About box Info -->
+        <div class="settings-group" style="border-top: 1px solid var(--border-color); padding-top:16px;">
+          <span class="settings-group-title">About PromptVault</span>
+          <div class="settings-about-box">
+            <div class="settings-about-line">App Name: <span>PromptVault</span></div>
+            <div class="settings-about-line">Tagline: <span>Your Personal AI Prompt Library</span></div>
+            <div class="settings-about-line">Engine Version: <span>1.0.0 (Production Desktop)</span></div>
+            <div class="settings-about-line">License: <span>MIT License (Offline Packaged)</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification System Anchor -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- App Data and Scripts (Sequential load for file:// compatibility without CORS blocks) -->
+  <script src="data/categories.js"></script>
+  <script src="data/prompts.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/search.js"></script>
+  <script src="js/favorites.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>
