@@ -53,14 +53,14 @@ const UI = {
     if (!scrollContainer) return;
 
     let html = '';
-    
+
     // Add library category sections
     html += `<div class="sidebar-section-title">Library</div>`;
     categories.forEach(category => {
       const count = counts[category.id] || 0;
       const isActive = category.id === activeCategoryId ? 'active' : '';
       const iconMarkup = this.icon(category.icon, 'category-icon');
-      
+
       html += `
         <a class="category-item ${isActive}" data-id="${category.id}">
           <div class="category-left">
@@ -70,7 +70,7 @@ const UI = {
           <span class="category-count">${count}</span>
         </a>
       `;
-      
+
       // Inject divider after 'All Prompts'
       if (category.id === 'all') {
         html += `<div class="sidebar-section-title">Categories</div>`;
@@ -88,7 +88,7 @@ const UI = {
     const favEl = document.getElementById('stat-favorites');
     const catEl = document.getElementById('stat-categories');
     const searchEl = document.getElementById('stat-search');
-    
+
     if (totalEl) totalEl.innerText = totalCount;
     if (favEl) favEl.innerText = favoritesCount;
     if (catEl) catEl.innerText = categoriesCount;
@@ -137,7 +137,7 @@ const UI = {
   renderSkeletons() {
     const listContainer = document.getElementById('prompt-cards-list');
     if (!listContainer) return;
-    
+
     let html = '';
     for (let i = 0; i < 4; i++) {
       html += `
@@ -175,16 +175,16 @@ const UI = {
       const isSelected = prompt.id === selectedId ? 'active' : '';
       const isFav = StorageEngine.isFavorite(prompt.id) ? 'favorited' : '';
       const isPinned = StorageEngine.isPinned(prompt.id) ? 'pinned' : '';
-      
+
       const title = SearchEngine.highlightText(prompt.title, query);
       const desc = SearchEngine.highlightText(prompt.description, query);
-      
+
       // Calculate category tag formatting
       const catObj = window.CATEGORIES_DATA.find(c => c.id === prompt.category);
       const catName = catObj ? catObj.name : prompt.category;
-      
+
       const difficultyClass = `badge-difficulty-${prompt.difficulty.toLowerCase()}`;
-      
+
       html += `
         <div class="prompt-card ${isSelected} ${isPinned ? 'pinned' : ''}" data-id="${prompt.id}">
           <div class="card-header">
@@ -233,16 +233,16 @@ const UI = {
 
     // Mark variables like [VARIABLE] in prompt content
     const markedPrompt = prompt.prompt.replace(/(\[[A-Z0-9_]+\])/g, '<mark>$1</mark>');
-    
+
     // Get category info
     const catObj = window.CATEGORIES_DATA.find(c => c.id === prompt.category);
     const catName = catObj ? catObj.name : prompt.category;
-    
+
     // Check states
     const isFav = StorageEngine.isFavorite(prompt.id);
     const isPinned = StorageEngine.isPinned(prompt.id);
     const activeRating = StorageEngine.getRating(prompt.id);
-    
+
     // Calculate reading time
     const words = (prompt.prompt || '').split(/\s+/).length;
     const readTime = Math.max(1, Math.round(words / 200));
@@ -337,15 +337,20 @@ const UI = {
         <button class="btn-secondary prev-prompt-btn" style="padding: 6px 12px; font-size: 0.8rem;">
           ${this.icon('chevron-left')} Prev
         </button>
-        <button class="btn-secondary copy-all-btn" data-id="${prompt.id}" style="padding: 6px 12px; font-size: 0.8rem;">
-          ${this.icon('copy')} Copy Everything
+
+        <button
+          class="btn-secondary copy-prompt-btn"
+          data-text="${prompt.prompt}"
+          style="padding: 6px 12px; font-size: 0.8rem;">
+          ${this.icon('copy')} Copy Prompt
         </button>
+
         <button class="btn-secondary next-prompt-btn" style="padding: 6px 12px; font-size: 0.8rem;">
           Next ${this.icon('chevron-right')}
         </button>
       </div>
     `;
-    
+
     // Track recently viewed
     StorageEngine.addRecentlyViewed(prompt.id);
   },
@@ -369,7 +374,7 @@ const UI = {
     let html = '';
     results.forEach((item, index) => {
       const isSelected = index === selectedIndex ? 'selected' : '';
-      
+
       html += `
         <div class="command-item ${isSelected}" data-index="${index}" data-action="${item.type}" data-val="${item.value}">
           <div class="command-item-left">
@@ -380,7 +385,7 @@ const UI = {
         </div>
       `;
     });
-    
+
     list.innerHTML = html;
   },
 
@@ -391,16 +396,16 @@ const UI = {
     const btn = e.currentTarget;
     const ripple = document.createElement('span');
     ripple.classList.add('ripple');
-    
+
     const rect = btn.getBoundingClientRect();
     const size = Math.max(rect.width, rect.height);
-    
+
     ripple.style.width = ripple.style.height = `${size}px`;
-    ripple.style.left = `${e.clientX - rect.left - size/2}px`;
-    ripple.style.top = `${e.clientY - rect.top - size/2}px`;
-    
+    ripple.style.left = `${e.clientX - rect.left - size / 2}px`;
+    ripple.style.top = `${e.clientY - rect.top - size / 2}px`;
+
     btn.appendChild(ripple);
-    
+
     setTimeout(() => {
       ripple.remove();
     }, 600);
@@ -415,7 +420,7 @@ const UI = {
 
     const toast = document.createElement('div');
     toast.className = `toast`;
-    
+
     const iconName = type === 'success' ? 'check' : 'info';
     toast.innerHTML = `
       <span class="toast-icon">${this.icon(iconName)}</span>

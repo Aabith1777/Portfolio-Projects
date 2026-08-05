@@ -19,7 +19,7 @@ const App = {
     difficultyFilter: 'all',
     sortBy: 'alphabetical',
     searchCount: 0,
-    
+
     // Command Palette state
     commandPaletteOpen: false,
     activeCommandIndex: 0,
@@ -42,17 +42,17 @@ const App = {
     // 2. Initialize logical subsystems
     StorageEngine.getFavorites(); // Ensure initialization
     ThemeManager.init();
-    
+
     // 3. Apply preferences
     const prefs = StorageEngine.getPreferences();
     if (prefs.sidebarCollapsed) {
       document.getElementById('app-sidebar').classList.add('collapsed');
     }
-    
+
     // 4. Render initial elements
     UI.renderDailyTip();
     this.refreshUI();
-    
+
     // Select first prompt on launch if list is not empty
     if (this.state.filteredPrompts.length > 0) {
       this.selectPrompt(this.state.filteredPrompts[0].id);
@@ -126,7 +126,7 @@ const App = {
     // Calculate category counts dynamically
     const counts = { all: this.state.prompts.length };
     counts['favorites'] = FavoritesManager.getFavorites().length;
-    
+
     this.state.categories.forEach(cat => {
       if (cat.id !== 'all') {
         counts[cat.id] = this.state.prompts.filter(p => p.category === cat.id).length;
@@ -162,7 +162,7 @@ const App = {
     this.state.selectedPromptId = id;
     const prompt = this.state.prompts.find(p => p.id === id);
     UI.renderPromptDetails(prompt);
-    
+
     // Mark card as active
     document.querySelectorAll('.prompt-card').forEach(card => {
       card.classList.remove('active');
@@ -187,7 +187,7 @@ const App = {
           const categoryId = item.getAttribute('data-id');
           this.state.selectedCategoryId = categoryId;
           this.refreshUI();
-          
+
           // On mobile, close sidebar after choosing category
           document.getElementById('app-sidebar').classList.remove('open-mobile');
         }
@@ -201,7 +201,7 @@ const App = {
         const card = e.target.closest('.prompt-card');
         const favBtn = e.target.closest('.fav-toggle-btn');
         const pinBtn = e.target.closest('.pin-toggle-btn');
-        
+
         if (favBtn) {
           e.stopPropagation();
           const id = favBtn.getAttribute('data-id');
@@ -217,7 +217,7 @@ const App = {
         } else if (card) {
           const id = card.getAttribute('data-id');
           this.selectPrompt(id);
-          
+
           // On small viewports, open detail pane overlay
           if (window.innerWidth <= 1024) {
             document.getElementById('prompt-details-pane').classList.add('active-overlay');
@@ -262,6 +262,7 @@ const App = {
       detailPane.addEventListener('click', (e) => {
         const copyBtn = e.target.closest('.copy-btn');
         const copyAllBtn = e.target.closest('.copy-all-btn');
+        const copyPromptBtn = e.target.closest('.copy-prompt-btn');
         const printBtn = e.target.closest('.print-btn');
         const favBtn = e.target.closest('.fav-detail-btn');
         const pinBtn = e.target.closest('.pin-detail-btn');
@@ -275,15 +276,11 @@ const App = {
           navigator.clipboard.writeText(text).then(() => {
             UI.showToast('Copied Prompt Template!');
           });
-        } else if (copyAllBtn) {
-          const id = copyAllBtn.getAttribute('data-id');
-          const prompt = this.state.prompts.find(p => p.id === id);
-          if (prompt) {
-            const everything = `Title: ${prompt.title}\nDescription: ${prompt.description}\n\n[TEMPLATE]\n${prompt.prompt}\n\n[EXAMPLE INPUT]\n${prompt.exampleInput}\n\n[EXPECTED OUTPUT]\n${prompt.exampleOutput}`;
-            navigator.clipboard.writeText(everything).then(() => {
-              UI.showToast('Copied Everything successfully!');
-            });
-          }
+        } else if (copyPromptBtn) {
+          const text = copyPromptBtn.getAttribute('data-text');
+          navigator.clipboard.writeText(text).then(() => {
+            UI.showToast('Prompt copied successfully!');
+          });
         } else if (printBtn) {
           window.print();
         } else if (favBtn) {
@@ -351,7 +348,7 @@ const App = {
     if (sidebarToggle) {
       sidebarToggle.addEventListener('click', (e) => {
         UI.addRippleEffect(e);
-        
+
         if (window.innerWidth <= 768) {
           // Mobile: slide drawer in/out
           document.getElementById('app-sidebar').classList.toggle('open-mobile');
@@ -383,7 +380,7 @@ const App = {
           scrollBtn.classList.remove('visible');
         }
       });
-      
+
       scrollBtn.addEventListener('click', () => {
         scrollContainer.scrollTo({ top: 0, behavior: 'smooth' });
       });
@@ -446,7 +443,7 @@ const App = {
       fileImport.addEventListener('change', (e) => {
         const file = e.target.files[0];
         if (!file) return;
-        
+
         const reader = new FileReader();
         reader.onload = (event) => {
           const success = StorageEngine.importBackup(event.target.result);
@@ -469,7 +466,7 @@ const App = {
       commandInput.addEventListener('input', (e) => {
         this.filterCommandPalette(e.target.value);
       });
-      
+
       commandInput.addEventListener('keydown', (e) => {
         if (e.key === 'ArrowDown') {
           e.preventDefault();
@@ -507,7 +504,7 @@ const App = {
           input.select();
         }
       }
-      
+
       // Ctrl + D (Toggle Theme)
       if ((e.ctrlKey || e.metaKey) && e.key === 'd') {
         e.preventDefault();
@@ -565,13 +562,13 @@ const App = {
    */
   navigatePrompt(direction) {
     if (this.state.filteredPrompts.length === 0) return;
-    
+
     const currentIndex = this.state.filteredPrompts.findIndex(p => p.id === this.state.selectedPromptId);
     let nextIndex = currentIndex + direction;
-    
+
     if (nextIndex < 0) nextIndex = this.state.filteredPrompts.length - 1;
     if (nextIndex >= this.state.filteredPrompts.length) nextIndex = 0;
-    
+
     const nextPrompt = this.state.filteredPrompts[nextIndex];
     this.selectPrompt(nextPrompt.id);
   },
@@ -581,10 +578,10 @@ const App = {
    */
   navigatePromptList(direction) {
     if (this.state.filteredPrompts.length === 0) return;
-    
+
     const currentIndex = this.state.filteredPrompts.findIndex(p => p.id === this.state.selectedPromptId);
     let nextIndex = currentIndex + direction;
-    
+
     if (nextIndex >= 0 && nextIndex < this.state.filteredPrompts.length) {
       this.selectPrompt(this.state.filteredPrompts[nextIndex].id);
     }
@@ -596,7 +593,7 @@ const App = {
   toggleCommandPalette(isOpen) {
     this.state.commandPaletteOpen = isOpen;
     this.toggleModal('command-palette-overlay', isOpen);
-    
+
     if (isOpen) {
       const input = document.getElementById('command-palette-input');
       if (input) {
@@ -642,7 +639,7 @@ const App = {
 
     this.state.matchingCommands = cmdList.slice(0, 10); // Limit to top 10 items
     this.state.activeCommandIndex = 0;
-    
+
     UI.renderCommandPaletteResults(this.state.matchingCommands, this.state.activeCommandIndex);
   },
 
@@ -659,7 +656,7 @@ const App = {
 
     this.state.activeCommandIndex = index;
     UI.renderCommandPaletteResults(this.state.matchingCommands, this.state.activeCommandIndex);
-    
+
     // Auto-scroll selected command item
     const container = document.getElementById('command-palette-results');
     const selected = container.querySelector('.command-item.selected');
